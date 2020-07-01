@@ -1,14 +1,14 @@
 import React from 'react'
-import './block-description.css'
+import './description-block.css'
 
-const BlockDescription = ({url}) => {
+const DescriptionBlock = () => {
 
     return (
         <div className='random-planet d-flex jumbotron mb-5'>
             <div>
-            <img className='planets-img' src='https://starwars-visualguide.com/assets/img/planets/2.jpg' alt='' />
+                <img className='planets-img' src='https://starwars-visualguide.com/assets/img/planets/2.jpg' alt='' />
             </div>
-            
+
 
             <div className='description'>
                 <h2>Bespin</h2>
@@ -23,4 +23,4 @@ const BlockDescription = ({url}) => {
     )
 }
 
-export default BlockDescription
+export default DescriptionBlock
