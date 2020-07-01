@@ -1,14 +1,24 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, Component } from 'react'
 import './random-planet.css'
 import DescriptionBlock from '../assembly-elems/description-block'
 
-const RandomPlanets = () => {
+export default class RandomPlanets extends Component{
 
-    return (
-        <Fragment>
-            <DescriptionBlock />
-        </Fragment>
-    )
+    state = {
+        name:null,
+        population:null,
+    }
+
+    render(){
+        return (
+            <Fragment>
+                <DescriptionBlock
+                propertyOne='Population:'
+                propertyTwo='Rotaion Period:'
+                propertyThree='Diametr:' />
+            </Fragment>
+        )
+    }
+   
 }
 
-export default RandomPlanets

@@ -19,3 +19,11 @@
     color:#39ccaf;
     cursor: pointer;
 }
+@media(max-width:580px){
+    .header {
+        flex-direction: column;
+    }
+    .nav-bar{
+        display: flex;
+    }
+}

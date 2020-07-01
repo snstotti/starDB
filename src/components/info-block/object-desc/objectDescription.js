@@ -5,7 +5,10 @@ import DescriptionBlock from '../../assembly-elems/description-block'
 const ObjectDescription=()=>{
     return(
         <div>
-            <DescriptionBlock />
+            <DescriptionBlock
+            propertyOne='Gender:'
+            propertyTwo='Birth year:'
+            propertyThree='Eye color:' />
         </div>
     )
 }
