@@ -2,7 +2,11 @@
     padding: 1rem;
 }
 
-
+@media (max-width: 12450px) {
+    .random-planet {
+        display: block;
+    }
+}
 
 .planets-img {
     width: 150px;

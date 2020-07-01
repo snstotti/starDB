@@ -1,7 +1,7 @@
 import React from 'react'
-import './random-planet.css'
+import './block-description.css'
 
-const RandomPlanets = () => {
+const BlockDescription = ({url}) => {
 
     return (
         <div className='random-planet d-flex jumbotron mb-5'>
@@ -23,4 +23,4 @@ const RandomPlanets = () => {
     )
 }
 
-export default RandomPlanets
+export default BlockDescription
