@@ -1,15 +1,16 @@
 import React, { Fragment, Component } from 'react'
 import './random-planet.css'
-import DescriptionBlock from '../assembly-elems/description-block'
+// import DescriptionBlock from '../assembly-elems/description-block'
 import SwapiService from '../../service/SwapiService'
-import Spiner from '../spiner/spiner'
+// import Spiner from '../spiner/spiner'
 
 export default class RandomPlanets extends Component{
 
     swapiService = new SwapiService()
 
     state = {
-        planet: {}
+        planet: {},
+        isLoader: true
     }
 
     constructor(){
@@ -18,7 +19,9 @@ export default class RandomPlanets extends Component{
     }
 
     onPlanetLoaded=(planet)=>{
-        this.setState({planet})
+        this.setState({
+            planet,
+            isLoader: false})
     }
 
     updatePlanets(){
@@ -29,21 +32,23 @@ export default class RandomPlanets extends Component{
     
 
     render(){
-        const {planet: {id, name, rotaionPeriod, population, diameter}} = this.state
-
+        const {planet: {id, name, rotaionPeriod, population, diameter, isLoader}} = this.state
+        console.log(this.state.planet)
         return (
             <Fragment>
-               
-                <DescriptionBlock
-                loader =  {<Spiner />}
-                id={id}
-                name={name}
-                dataOne={population}
-                dataTwo={rotaionPeriod}
-                dataThree={diameter}
+                {/* <DescriptionBlock
+                // planet={planet}
+                spiner =  {<Spiner />}
+                // isLoader ={isLoader}
+                // id={id}
+                // name={name}
+                // dataOne={population}
+                // dataTwo={rotaionPeriod}
+                // dataThree={diameter}
                 propertyOne='Population: '
                 propertyTwo='Rotaion Period: '
-                propertyThree='Diametr: ' />
+                propertyThree='Diametr: ' 
+                /> */}
             </Fragment>
         )
     }
