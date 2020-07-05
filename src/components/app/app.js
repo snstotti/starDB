@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import Header from '../header/header'
-import RandomPlanet from '../random-planet/random-planet'
-import ObjectDescription from '../info-block/object-desc/objectDescription'
-import ListObject from '../info-block/list-objects/listObject'
-import './app.css'
-
+import RandomPlanets from '../random-planet/random-planet'
+import ItemList from '../item-list/item-list'
+import PersonDetails from '../person-details/person-details'
 
 class App extends Component{
 
@@ -14,11 +12,12 @@ class App extends Component{
         return(
             <div className='container-md'>
                <Header />
-               <RandomPlanet />
-               <div className='info-block'>
-                    <ListObject />
-                    <ObjectDescription />
+               <RandomPlanets />
+               <div className='d-flex block' >
+                    <ItemList /> 
+                    <PersonDetails />
                </div>
+               
             </div>
         )
     }

@@ -35,13 +35,6 @@ export default class SwapiService {
     }
   }
   
-//   const swapi = new SwapiService()
-//   swapi.getStarships(4).then(p => console.log(p.name))
-//   // swapi.getAllStarships().then(people=>people.forEach(e => {
-//   //   console.log(e.name);
-  
-//   // }));
-  
   
   
   
