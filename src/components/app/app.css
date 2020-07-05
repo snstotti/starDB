@@ -1,6 +1,9 @@
- 
-@media (max-width: 1245px) {
+ .block {
+     display: flex;
+     justify-content: space-between;
+ }
+@media (max-width: 800px) {
     .block {
-        display: block;
+        flex-direction: column;
     }
 }
