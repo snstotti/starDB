@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Header from '../header/header'
-import RandomPlanets from '../random-planet/random-planet'
+import RandomPlanet from '../random-planet/random-planet'
 import ObjectDescription from '../info-block/object-desc/objectDescription'
 import ListObject from '../info-block/list-objects/listObject'
 import './app.css'
@@ -14,7 +14,7 @@ class App extends Component{
         return(
             <div className='container-md'>
                <Header />
-               <RandomPlanets />
+               <RandomPlanet />
                <div className='info-block'>
                     <ListObject />
                     <ObjectDescription />
