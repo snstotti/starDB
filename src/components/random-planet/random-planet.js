@@ -1,22 +1,35 @@
-import React,{Component} from 'react'
+import React,{Component, Fragment} from 'react'
 import './random-planet.css'
 import SwapiService from '../../service/SwapiService'
+import Spiner from '../spiner/spiner'
+import ErrorIndicator from '../errorIndicator/errorIndicator'
 
 export default class RandomPlanets extends Component{
 
     swapiService = new SwapiService()
 
     state={
-        planet:{}
+        planet:{},
+        isLoading:true,
+        error: false
     }
 
-    constructor(){
-        super()
+   
+
+    componentDidMount(){
         this.updatePlanet()
+        this.interval = setInterval(this.updatePlanet, 2000)
     }
 
     onPlanetLoaded=(planet)=>{
-        this.setState({planet})
+        this.setState({planet, isLoading: false})
+    }
+
+    onError=()=>{
+        this.setState({
+            error: true,
+            isLoading: false
+        })
     }
 
     updatePlanet =()=>{
@@ -24,21 +37,41 @@ export default class RandomPlanets extends Component{
         this.swapiService
             .getPlanet(id)
             .then(this.onPlanetLoaded)
-        
+            .catch(this.onError)
     }
 
+
+
 render(){
-    console.log(this.swapiService.getPlanet(7));
     
-    const {planet:{id,name,rotationPeriod,population,diameter}} = this.state
+    const {planet,isLoading, error} = this.state
+
+    const hasData = !(isLoading || error)
+    const spiner = isLoading ? <Spiner /> : null
+    const content = hasData ? <PlanetView planet={planet} /> : null
+    const errorMessage = error ? <ErrorIndicator /> : null
 
     return (
-        <div className='random-planet d-flex jumbotron mb-5'>
+        <div className='random-planet d-flex jumbotron mb-5 rounded'>
+            {spiner}
+            {errorMessage}
+            {content}
+        </div>
+    )
+}
+    
+}
 
-            <div>
+const PlanetView = ({planet})=>{
+
+    const {id,name,rotationPeriod,population,diameter} = planet
+
+    return(
+        <Fragment>
+             <div>
             <img className='planets-img' src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} alt='' />
             </div>
-            
+           
 
             <div className='description'>
                 <h2>{name}</h2>
@@ -48,10 +81,6 @@ render(){
                     <li className="list-group-item list-description">Diameter {diameter}</li>
                 </ul>
             </div>
-
-        </div>
+        </Fragment>
     )
 }
-    
-}
-

@@ -4,7 +4,7 @@ import './spiner.css'
 const Spiner = () => {
 
     return (
-        <div class="col-sm-2">
+        <div className="col-sm-2 spiner">
         		<div id="nest3"></div>
         		
         	</div>
