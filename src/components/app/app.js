@@ -1,23 +1,38 @@
 import React, { Component } from 'react'
 import Header from '../header/header'
 import RandomPlanets from '../random-planet/random-planet'
-import ItemList from '../item-list/item-list'
-import PersonDetails from '../person-details/person-details'
+// import ItemList from '../item-list/item-list'
+// import PersonDetails from '../person-details/person-details'
 import './app.css'
-class App extends Component{
+import PeoplePage from '../peoplePage/peoplePage'
 
-    render(){
 
-       
-        return(
+
+class App extends Component {
+
+    state = {
+        ItemSelected: 4
+    }
+
+    onItemSelected = (id) => {
+        this.setState({
+            ItemSelected: id
+        })
+    }
+
+    render() {
+
+        
+        return (
             <div className='container-md'>
-               <Header />
-               <RandomPlanets />
-               <div className='block' >
-                    <ItemList /> 
-                    <PersonDetails />
-               </div>
-               
+                <Header />
+                <RandomPlanets />
+
+                <PeoplePage
+                    
+                    onItemSelected={this.onItemSelected}
+                    personId={this.state.ItemSelected} />
+
             </div>
         )
     }

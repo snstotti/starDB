@@ -1,6 +1,7 @@
  .block {
      display: flex;
-     justify-content: space-between;
+     justify-content: flex-start;
+     margin-bottom: 3rem;
  }
 @media (max-width: 800px) {
     .block {
