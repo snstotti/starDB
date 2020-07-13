@@ -1,19 +1,45 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './peoplePage.css'
-
+import ErrorIndicator from '../errorIndicator/errorIndicator'
 import ItemList from '../item-list/item-list'
 import PersonDetails from '../person-details/person-details'
 
-export default class PeoplePage extends Component{
+export default class PeoplePage extends Component {
 
+    state = {
+        ItemSelected: 7,
+        hasError: false
+    }
 
+    onItemSelected = (id) => {
+        this.setState({
+            ItemSelected: id
+        })
+    }
 
-    render(){
-        const {onItemSelected, personId} = this.props
-        return(
+    componentDidCatch(){
+        this.setState({
+            hasError: true
+        })
+    }
+
+    render() {
+        const {getData} = this.props
+        
+        if(this.state.hasError){
+            return (
+                <ErrorIndicator />
+            )
+        }
+
+        
+        return (
             <div className='blockPage'>
-                <ItemList onItemSelected={onItemSelected}/> 
-                <PersonDetails personId={personId}/>
+                <ItemList 
+                    onItemSelected={this.onItemSelected}
+                    getData={getData}
+                    renderItem={({gender, birthYear})=> `${gender}, ${birthYear}`} />
+                <PersonDetails personId={this.state.ItemSelected} />
             </div>
         )
     }

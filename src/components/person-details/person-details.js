@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import './person-details.css'
 import SwapiService from '../../service/SwapiService'
 import Spiner from '../spiner/spiner'
-
+import ErrorButton from '../errorButton/errorButton'
 export default class PersonDetails extends Component{
 
     swapiService = new SwapiService()
@@ -59,7 +59,9 @@ export default class PersonDetails extends Component{
                         <li className="list-group-item list-description">Birth year: {birthYear} </li>
                         <li className="list-group-item list-description">Eye color: {eyeColor} </li>
                     </ul>
+                    {/* <ErrorButton /> */}
                 </div>
+                
             </div>
         )
     }

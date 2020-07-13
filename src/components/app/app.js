@@ -5,20 +5,13 @@ import RandomPlanets from '../random-planet/random-planet'
 // import PersonDetails from '../person-details/person-details'
 import './app.css'
 import PeoplePage from '../peoplePage/peoplePage'
+import SwapiService from '../../service/SwapiService'
 
 
 
-class App extends Component {
+export default class App extends Component {
 
-    state = {
-        ItemSelected: 4
-    }
-
-    onItemSelected = (id) => {
-        this.setState({
-            ItemSelected: id
-        })
-    }
+    swapiService = new SwapiService();
 
     render() {
 
@@ -26,16 +19,11 @@ class App extends Component {
         return (
             <div className='container-md'>
                 <Header />
+
                 <RandomPlanets />
 
-                <PeoplePage
-                    
-                    onItemSelected={this.onItemSelected}
-                    personId={this.state.ItemSelected} />
-
+                <PeoplePage getData={this.swapiService.getAllPeople} />
             </div>
         )
     }
 }
-
-export default App
