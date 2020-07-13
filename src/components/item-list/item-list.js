@@ -17,6 +17,7 @@ export default class ItemList extends Component {
     componentDidMount() {
         
         const {getData} = this.props
+        
         getData().then((itemList) => {
                 this.setState({
                     itemList
@@ -39,11 +40,8 @@ export default class ItemList extends Component {
         })
     }
 
-
-
     render() {
-
-        
+  
         const { itemList } = this.state
 
         if (!itemList) {
@@ -51,8 +49,6 @@ export default class ItemList extends Component {
           }
 
         const items = this.renderItems(itemList)
-      
-        
 
         return (
             <div className='item-list mr-5'>

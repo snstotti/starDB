@@ -1,68 +1,79 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import './person-details.css'
 import SwapiService from '../../service/SwapiService'
 import Spiner from '../spiner/spiner'
-import ErrorButton from '../errorButton/errorButton'
-export default class PersonDetails extends Component{
+
+const PeopleDetails =()=>{
+
+    
+
+    const { name, gender, birthYear, eyeColor } = this.state.details
+
+    return (
+        <div className='personDetails d-flex jumbotron'>
+            <div>
+                <img className='planets-img' src={this.state.image} alt='' />
+            </div>
+
+            <div className='description'>
+                <h3>{name} </h3>
+                <ul className="list-group list-group-flush description">
+                    <li className="list-description list-group-item ">Gender: {gender} </li>
+                    <li className="list-group-item list-description">Birth year: {birthYear} </li>
+                    <li className="list-group-item list-description">Eye color: {eyeColor} </li>
+                </ul>
+            </div>
+        </div>
+    )
+}
+
+
+
+
+export default class PersonDetails extends Component {
 
     swapiService = new SwapiService()
 
-    state={
-        person:null
+    state = {
+        details: null,
+        image: null
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.onUpdatePerson()
     }
 
-    componentDidUpdate(prevProps){
-        if(this.props.personId !== prevProps.personId){
+    componentDidUpdate(prevProps) {
+        if (this.props.personId !== prevProps.personId) {
             this.onUpdatePerson()
         }
     }
 
-    onUpdatePerson=()=>{
-        const {personId} = this.props
+    onUpdatePerson = () => {
+        const { personId, getDetails, getUrl } = this.props
 
-        if(!personId){
+        if (!personId) {
             return <Spiner />
         }
 
-        this.swapiService
-        .getPerson(personId)
-        .then((person)=>{
-            this.setState({
-                person
+
+        getDetails(personId)
+            .then((details) => {
+                this.setState({
+                    details,
+                    image: getUrl(details)
+                })
             })
-        })
     }
 
-    render(){
-        if(!this.state.person){
+    render() {
+        if (!this.state.details) {
             return <Spiner />
         }
-
-        const {id, name, gender, birthYear, eyeColor} = this.state.person
-       
-
-        return (
-            <div className='personDetails d-flex jumbotron'>
-                <div>
-                <img className='planets-img' src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt='' />
-                </div>
-                
-    
-                <div className='description'>
-                    <h3>{name} </h3>
-                    <ul className="list-group list-group-flush description">
-                        <li className="list-description list-group-item ">Gender: {gender} </li>
-                        <li className="list-group-item list-description">Birth year: {birthYear} </li>
-                        <li className="list-group-item list-description">Eye color: {eyeColor} </li>
-                    </ul>
-                    {/* <ErrorButton /> */}
-                </div>
-                
-            </div>
+        return(
+            <PeopleDetails/>
         )
+       
+       
     }
 }

@@ -4,6 +4,7 @@ import ErrorIndicator from '../errorIndicator/errorIndicator'
 import ItemList from '../item-list/item-list'
 import PersonDetails from '../person-details/person-details'
 
+
 export default class PeoplePage extends Component {
 
     state = {
@@ -24,7 +25,7 @@ export default class PeoplePage extends Component {
     }
 
     render() {
-        const {getData} = this.props
+        const {getData, getDetails, getUrl} = this.props
         
         if(this.state.hasError){
             return (
@@ -39,7 +40,11 @@ export default class PeoplePage extends Component {
                     onItemSelected={this.onItemSelected}
                     getData={getData}
                     renderItem={({gender, birthYear})=> `${gender}, ${birthYear}`} />
-                <PersonDetails personId={this.state.ItemSelected} />
+                <PersonDetails 
+                    personId={this.state.ItemSelected}
+                    getDetails={getDetails}
+                    getUrl={getUrl}
+                     />
             </div>
         )
     }

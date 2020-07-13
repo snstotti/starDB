@@ -7,17 +7,18 @@
     list-style-type: none;
 }
 
-.nav-bar li {
+.nav-bar li a{
     padding: .5rem 1rem;
     color:#1E705F;
     font-weight: bold;
 }
 
-.nav-bar li:hover{
+.nav-bar li a:hover{
     background-color: #444;
     border-radius: 5px;
     color:#39ccaf;
     cursor: pointer;
+    text-decoration: none;
 }
 @media(max-width:580px){
     .header {
