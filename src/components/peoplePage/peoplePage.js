@@ -3,48 +3,73 @@ import './peoplePage.css'
 import ErrorIndicator from '../errorIndicator/errorIndicator'
 import ItemList from '../item-list/item-list'
 import PersonDetails from '../person-details/person-details'
+// import { imageProfile } from '../redux/peoplePageReduce'
+// import { profileAPI } from '../API/Api'
+
 
 
 export default class PeoplePage extends Component {
 
     state = {
-        ItemSelected: 7,
+        ItemSelected: 4,
         hasError: false
     }
 
-    onItemSelected = (id) => {
-        this.setState({
-            ItemSelected: id
-        })
-    }
+    // onItemSelected = (id) => {
+    //     this.setState({
+    //         ItemSelected: id
+    //     })
+    // }
 
-    componentDidCatch(){
-        this.setState({
-            hasError: true
-        })
-    }
+    // componentDidCatch(){ // error
+    //     this.setState({
+    //         hasError: true
+    //     })
+    // }
 
     render() {
-        const {getData, getDetails, getUrl} = this.props
+        const { getData, selectedId, getDetails, getUrl, peopleInfo, setUrlimageProfile, requestPeopleInfo, imageProfile, imageUrl, listPeople, requestListPeople, setStartId, personUrl, setUrlProfile, onItemSelected, idItem } = this.props
+
+
         
-        if(this.state.hasError){
+        
+
+
+        
+        if (this.state.hasError) {
             return (
-                <ErrorIndicator />
+                <ErrorIndicator /> // error
             )
         }
 
-        
         return (
             <div className='blockPage'>
-                <ItemList 
-                    onItemSelected={this.onItemSelected}
+                <ItemList
+                    setStartId={setStartId}
+                    idItem={idItem}
+                    // onItemSelected={this.onItemSelected}
+                    onItemSelected={onItemSelected}
+                    // planetInfo={planetInfo}
+                    selectedId={selectedId}
                     getData={getData}
-                    renderItem={({gender, birthYear})=> `${gender}, ${birthYear}`} />
-                <PersonDetails 
-                    personId={this.state.ItemSelected}
+                    requestListPeople={requestListPeople}
+                    listPeople={listPeople}
+                    setUrlProfile={setUrlProfile}
+                    personUrl={personUrl}
+                // renderItem={({gender, birthYear})=> `${gender}, ${birthYear}`} 
+                />
+                <PersonDetails
+                    setStartId={setStartId}
+                    idItem={idItem}
+                    selectedId={selectedId}
                     getDetails={getDetails}
                     getUrl={getUrl}
-                     />
+                    requestPeopleInfo={requestPeopleInfo}
+                    setUrlimageProfile={setUrlimageProfile}
+                    peopleInfo={peopleInfo}
+                    imageUrl={imageUrl}
+                // renderDetails={renderDetails} 
+                />
             </div>
         )
     }
