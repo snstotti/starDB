@@ -1,123 +1,42 @@
 import React, { Component } from 'react'
 import './item-list.css'
-// import SwapiService from '../../service/SwapiService'
-import Spinner from '../spiner/spiner'
-import {extractId} from '../helpers/getIdFromImage'
-import Spiner from '../spiner/spiner'
+import RenderItemPeopleList from './renderItemsPeople'
+
 
 export default class ItemList extends Component {
 
-   
-
-    state = {
-        itemList: null,
-        page: 4,
-        
-    }
-    
-    buttonNextPage=()=>{
-        this.setState({
-            page: this.state.page + 1
-        })
-    }
-    
-    
     componentDidMount() {
-
-        const {getData, requestListPeople, listPeople, setStartId} = this.props
-        const {setUrlProfile} = this.props
-         // get url person people
-         
-        requestListPeople(this.state.page) // list People
-
-       
-        // setStartId(listPeople[0].id)
-        // if (!listPeople.length >= 0){
-        //     return <Spiner />
-        // } else {
-        //     const id = listPeople[0].id
-        //     setStartId(id)
-        // }
-    
-        
-       
-        
-        
-        
-        // extractId(personUrl)
-       
-        
-        // getData().then((itemList) => {
-        //         this.setState({
-        //             itemList
-        //         })
-        //     })
+        const { requestListPeople, page } = this.props
+        requestListPeople(page) // list People
     }
 
-    // componentDidUpdate(prevProps){
-        
-    //     if(this.state.page !== prevProps.page){
-    //         return update
-    //     }
-    // }
-
-    // renderItems = (arr) => {
-    //     return arr.map((item) => {
-    //         const {id, name} = item
-    //         const label = this.props.renderItem(item)
-    //         return (
-    //             <li
-    //                 onClick={()=>this.props.onItemSelected(id)}
-    //                 key={id}
-    //                 className='list-group-item list-group-item-action list'>
-    //                 <span>{name} <span className='label'>{label}</span></span>
-    //             </li>
-    //         )
-    //     })
-    // }
-    
-    
-   
-    
+    componentDidUpdate(prevProps) {
+        const { requestListPeople, page } = this.props
+        if (page !== prevProps.page) {
+            requestListPeople(page)
+        }
+    }
 
     render() {
-        
-        const {listPeople, personUrl, onItemSelected, setStartId} = this.props
 
-       
-      
-
-        const peopleList = listPeople.map(elem=>{
-            const {name, birthYear, gender, id} = elem
-            return <li id={id}
-                key={id}
-                onClick={()=>{setStartId(id)}}
-                className='list-group-item list-group-item-action list'>
-                    <span>{name}</span> <span className='label'>{birthYear}, {gender}</span>
-            </li>
-        })
-
-        // const { itemList } = this.state
-
-        // if (!itemList) {
-        //     return <Spinner />;
-        //   }
-        if (!listPeople) {
-            return <Spinner />;
-          } else {
-            
-            
-          }
-        
-
-        // const items = this.renderItems(itemList)
+        const { listPeople, setStartId, idItem, toggleNextPage,togglePrevPage, page } = this.props
 
         return (
             <div className='item-list mr-5'>
-                {/* <button onClick={this.buttonNextPage}>next</button> */}
+                <div>
+                    <div className='d-flex justify-content-between'>
+                        <button
+                            className='btn btn-dark'
+                            onClick={page > 1 ? ()=>togglePrevPage(page) : null}>Previous page</button>
+                        <span className='d-inline-flex p-2 bd-highlight'>{page} number page </span>
+                        <button
+                            className='btn btn-dark'
+                            onClick={listPeople.length > 8 ? ()=>toggleNextPage(page) : null}>Next page</button>
+                    </div>
+                </div>
+
                 <ul className='list-group'>
-                    {peopleList}
-                    {/* {items} */}
+                    <RenderItemPeopleList listPeople={listPeople} setStartId={setStartId} idItem={idItem} />
                 </ul>
             </div>
         )
