@@ -4,40 +4,46 @@ import RandomPlanets from '../random-planet/random-planet'
 // import ItemList from '../item-list/item-list'
 // import PersonDetails from '../person-details/person-details'
 import './app.css'
-
-import { Route, BrowserRouter } from "react-router-dom"
-import { Provider } from 'react-redux'
-import store from '../redux/redux-store'
+import { setStartId} from '../redux/generalReduce'
+import { Route } from "react-router-dom"
 import PeoplePageContainer from '../peoplePage/peoplePageContainer'
+import PlanetsPageContainer from '../PlanetsPage/PlanetsPageContainer'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
 
-export default class App extends Component {
+class App extends Component {
 
-    
-    
+    onItemSelected = (id) => {
+        this.props.setStartId(id)
+    }
+
     render() {
-        
+
         return (
+            <div className='container-md'>
+                <Header />
 
-            <BrowserRouter>
-                <Provider store={store} >
-                    <div className='container-md'>
-                        <Header  />
+                <RandomPlanets />
 
-                        <RandomPlanets />
-
-                        <Route path='/people'>
-                            <PeoplePageContainer />
-                        </Route>
-                        <Route path='/planets'>
-                            {/* <PeoplePage
-                                getData={this.swapiService.getAllPlanets}
-                                getDetails={this.swapiService.getPlanet}
-                                getUrl={this.swapiService.getImagePlanet} /> */}
-                        </Route>
-                    </div>
-                </Provider>
-            </BrowserRouter>
+                <Route path='/people'>
+                    <PeoplePageContainer onItemSelected={this.onItemSelected} name='people' image='characters' />
+                </Route>
+                <Route path='/planets'>
+                <PeoplePageContainer onItemSelected={this.onItemSelected} name='planets' image='planets' />
+                    {/* <PlanetsPageContainer onItemSelected={this.onItemSelected} /> */}
+                </Route>
+            </div>
         )
     }
 }
+const mapStateToProps = (state) => {
+
+    return {
+        
+    }
+}
+
+export default compose(
+    connect(mapStateToProps, { setStartId })
+)(App)

@@ -3,10 +3,10 @@ import './item-list.css'
 import Spinner from '../spiner/spiner'
 
 
-const RenderItemPeopleList = ({ list, setStartId, idItem }) =>{
+const RenderItemPlanetList = ({ list, setStartId, idItem }) =>{
 
     const peopleList = list.map(elem => {
-        const { name, birthYear, gender, id } = elem
+        const { name, model, manufacturer, id } = elem
         const classActive = 'list-group-item list-group-item-action list active'
         const classDefault = 'list-group-item list-group-item-action list'
         return (
@@ -15,7 +15,7 @@ const RenderItemPeopleList = ({ list, setStartId, idItem }) =>{
                 key={id}
                 onClick={() => { setStartId(id) }}
                 className={id !== idItem ? classDefault : classActive}>
-                <span>{name}</span> <span className='label'>{birthYear}, {gender}</span>
+                <span>{name}</span> <span className='label'>{model}, {manufacturer}</span>
             </li>
         )
     })
@@ -32,4 +32,4 @@ const RenderItemPeopleList = ({ list, setStartId, idItem }) =>{
        
 }
 
-export default RenderItemPeopleList
+export default RenderItemPlanetList

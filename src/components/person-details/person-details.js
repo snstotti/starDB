@@ -1,40 +1,40 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './person-details.css'
 import Spiner from '../spiner/spiner'
-import DescriptionInfoPeople from './descriptionInfoPeople'
 
 
+const PersonDetails = ({ imageUrl, itemInfo }) => {
 
-
-export default class PersonDetails extends Component {
-
-    componentDidMount() {
-        this.onUpdatePerson()
+    if (!imageUrl) {
+        return <Spiner />
     }
-    componentDidUpdate(prevProps) {
-        if (this.props.idItem !== prevProps.idItem) {
-            this.onUpdatePerson()
-        }
-    }
-
-    onUpdatePerson = () => {
-        const { requestPeopleInfo, setStartId, setUrlimageProfile, idItem } = this.props
-        if (!idItem) {
-            return <Spiner />
-        }
-        setStartId(idItem)
-        setUrlimageProfile(idItem)
-        requestPeopleInfo(idItem)
-    }
-
-    render() {
-        const {imageUrl, peopleInfo} = this.props
-        if (!imageUrl ) {
-            return <Spiner />
-        } 
-        return(
-            <DescriptionInfoPeople peopleInfo={peopleInfo} imageUrl={imageUrl} />
+    const people =  itemInfo.map(e=>{
+        const { name, gender, birthYear, eyeColor, hairColor } = e
+        console.log(Object.keys(e));
+        return (
+            <div key={name} className='personDetails d-flex jumbotron'>
+                <div>
+                    <img className='planets-img'
+                        src={imageUrl}
+                        alt='' />
+                </div>
+    
+                <div className='description'>
+                    <h3>{name} </h3>
+                    <ul className="list-group list-group-flush description">
+                        <li className="list-description list-group-item ">Gender: {gender} </li>
+                        <li className="list-group-item list-description">Birth year: {birthYear} </li>
+                        <li className="list-group-item list-description">Eye color: {eyeColor} </li>
+                        <li className="list-group-item list-description">Hair color: {hairColor} </li>
+                    </ul>
+                </div>
+            </div>)
+    })
+    return (
+        <>
+            {people}
+        </>
         )
-    }
-}
 
+}
+export default PersonDetails

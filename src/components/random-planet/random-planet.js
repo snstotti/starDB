@@ -2,7 +2,7 @@ import React,{Component, Fragment} from 'react'
 import './random-planet.css'
 import SwapiService from '../../service/SwapiService'
 import Spiner from '../spiner/spiner'
-import ErrorIndicator from '../errorIndicator/errorIndicator'
+import ErrorIndicator from '../errorIndicator/ErrorIndicator'
 
 export default class RandomPlanets extends Component{
 

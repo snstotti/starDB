@@ -11,68 +11,34 @@ const instanceImage = Axios.create({
 
 export const imageAPI = {
     
-    getImagePeople(imageId){
+    getImageUrl(name,imageId){
         return (
-            instanceImage.get(`characters/${imageId}.jpg`)
+            instanceImage.get(`${name}/${imageId}.jpg`)
                 .then(responce => responce.request.responseURL)
         )
-    },
-    getImagePlanet(imageId) {
-        return (
-            instanceImage.get(`planets/${imageId}.jpg`)
-        )
-    },
-    getImageStarships(imageId) {
-        return (
-            instanceImage.get(`starships/${imageId}.jpg`)
-        )
     }
+    
 }
 
 
 export const itemsListAPI = {
     
-    getListPeople(page) {
+    getList(name,page) {
         return (
-            instance.get(`people/?page=${page}`)
+            instance.get(`${name}/?page=${page}`)
                 .then(responce => responce.data.results)
         )
-    },
-    getListPlanets() {
-        return (
-            instance.get(`planets`)
-            .then(responce => responce.data.results)
-        )
-    },
-    getListStarships(page) {
-        return (
-            instance.get(`starships/?page=${page}`)
-            .then(responce => responce.data.results)
-        )
-    },
-    
+    }
 }
 // itemsListAPI.getListPeople(2)
 export const personalAPI = {
     
-    getPerson(id) {
+    getPerson(name,id) {
         return (
-            instance.get(`people/${id}`)
+            instance.get(`${name}/${id}`)
             .then(responce => responce.data)
         )
-    },
-    getPlanet(id) {
-        return (
-            instance.get(`planets/${id}/`)
-            .then(responce => responce.data)
-        )
-    },
-    getStarship(id) {
-        return (
-            instance.get(`starships/${id}`)
-        )
-    },
-    
+    }
 }
 
 

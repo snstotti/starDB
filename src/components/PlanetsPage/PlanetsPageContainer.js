@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './peoplePage.css'
+import '../peoplePage/peoplePage.css'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { setStartId, setUrlimageProfile, requestList, requestItemInfo, toggleNextPage, togglePrevPage } from '../redux/generalReduce'
@@ -19,22 +19,40 @@ class PeoplePageContainer extends Component {
     }
 
     onUpdatePerson = () => {
-        const { requestItemInfo, setStartId, setUrlimageProfile, idItem, name, image } = this.props
+        const { requestItemInfo, setStartId, setUrlimageProfile, idItem } = this.props
         if (!idItem) {
             return <Spiner />
         }
         setStartId(idItem)
-        setUrlimageProfile(image, idItem)
-        requestItemInfo(name, idItem)
+        setUrlimageProfile('planets', idItem)
+        requestItemInfo('planets', idItem)
     }
 
 
     render() {
-       
+        const { selectedId, getDetails, getUrl, itemInfo, setUrlimageProfile, requestPeopleInfo, imageUrl, list, requestList, setStartId, onItemSelected, idItem, page, toggleNextPage, togglePrevPage } = this.props
         return (
             <div className='blockPage'>
-                <ItemList {...this.props} />
-                <PersonDetails {...this.props} />
+                <ItemList
+                    setStartId={setStartId}
+                    idItem={idItem}
+                    onItemSelected={onItemSelected}
+                    selectedId={selectedId}
+                    requestList={requestList}
+                    list={list}
+                    page={page}
+                    toggleNextPage={toggleNextPage}
+                    togglePrevPage={togglePrevPage} />
+                <PersonDetails
+                    setStartId={setStartId}
+                    idItem={idItem}
+                    selectedId={selectedId}
+                    getDetails={getDetails}
+                    getUrl={getUrl}
+                    requestPeopleInfo={requestPeopleInfo}
+                    setUrlimageProfile={setUrlimageProfile}
+                    itemInfo={itemInfo}
+                    imageUrl={imageUrl} />
             </div>
 
 
