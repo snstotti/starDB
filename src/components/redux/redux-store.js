@@ -1,13 +1,15 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import thunkMiddleware from 'redux-thunk'
-// import peoplePageReduce from './peoplePageReduce';
+import peoplePageReduce from './peoplePageReduce';
 import generalReduce from './generalReduce';
+import planetsPageReduce from './planetsPageReduce';
 
 
 
 
 const reducer = combineReducers({
-    // peoplePage: peoplePageReduce,
+    planetsPage: planetsPageReduce,
+    peoplePage: peoplePageReduce,
     general: generalReduce
 })
 

@@ -1,40 +1,51 @@
 import React from 'react'
 import './person-details.css'
 import Spiner from '../spiner/spiner'
+import ShortDescriptionPlanet from '../PlanetsPage/ShortDescriptionPlanet'
+import ShortDescriptionPeople from '../peoplePage/ShortDescriptionPeople'
+import ShortDescriptionStarships from '../../StarshipsPage/ShortDescriptionStarships/ShortDescriptionStarships'
 
 
-const PersonDetails = ({ imageUrl, itemInfo }) => {
-
+const PersonDetails = ({placeholderImageUrl, imageUrl, info,way }) => {
+    let image
     if (!imageUrl) {
+        image = placeholderImageUrl
         return <Spiner />
-    }
-    const people =  itemInfo.map(e=>{
-        const { name, gender, birthYear, eyeColor, hairColor } = e
-        console.log(Object.keys(e));
+    } else {image = imageUrl}
+
+    const itemInfo = info.map((e) => {
+
+        const {id, name} = e
         return (
-            <div key={name} className='personDetails d-flex jumbotron'>
+            <div key={id} className='personDetails d-flex jumbotron'>
                 <div>
                     <img className='planets-img'
-                        src={imageUrl}
+                        src={image}
                         alt='' />
                 </div>
-    
+
                 <div className='description'>
                     <h3>{name} </h3>
-                    <ul className="list-group list-group-flush description">
-                        <li className="list-description list-group-item ">Gender: {gender} </li>
-                        <li className="list-group-item list-description">Birth year: {birthYear} </li>
-                        <li className="list-group-item list-description">Eye color: {eyeColor} </li>
-                        <li className="list-group-item list-description">Hair color: {hairColor} </li>
+                    <ul className="list-group list-group-flush m-0">
+                       
+                       {way == 'planet' 
+                       ? <ShortDescriptionPlanet details={e} /> 
+                       : way == 'people' 
+                       ? <ShortDescriptionPeople details={e} />
+                       : null
+                       } 
+
+                        
+                       
                     </ul>
                 </div>
             </div>)
     })
     return (
         <>
-            {people}
+            {itemInfo}
         </>
-        )
+    )
 
 }
 export default PersonDetails

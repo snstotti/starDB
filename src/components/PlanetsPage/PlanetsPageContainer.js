@@ -1,77 +1,58 @@
 import React, { Component } from 'react'
-import '../peoplePage/peoplePage.css'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
-import { setStartId, setUrlimageProfile, requestList, requestItemInfo, toggleNextPage, togglePrevPage } from '../redux/generalReduce'
+import '../СommonСontainer/PageContainer/PageContainer.css'
 import ItemList from '../item-list/item-list'
-import PersonDetails from '../person-details/person-details'
 import Spiner from '../spiner/spiner'
+import PersonDetails from '../person-details/person-details'
+import ItemListPlanets from './itemListPlanets'
 
-class PeoplePageContainer extends Component {
+class PlanetsPageContainer extends Component {
 
     componentDidMount() {
         this.onUpdatePerson()
     }
     componentDidUpdate(prevProps) {
+       
         if (this.props.idItem !== prevProps.idItem) {
-            this.onUpdatePerson()
+             this.onUpdatePerson() 
         }
     }
 
     onUpdatePerson = () => {
-        const { requestItemInfo, setStartId, setUrlimageProfile, idItem } = this.props
+        const {  setStartId, getImage, requestInfo, idItem} = this.props
         if (!idItem) {
             return <Spiner />
         }
+        
         setStartId(idItem)
-        setUrlimageProfile('planets', idItem)
-        requestItemInfo('planets', idItem)
+        getImage(idItem)
+        requestInfo(idItem)
     }
 
-
+   
     render() {
-        const { selectedId, getDetails, getUrl, itemInfo, setUrlimageProfile, requestPeopleInfo, imageUrl, list, requestList, setStartId, onItemSelected, idItem, page, toggleNextPage, togglePrevPage } = this.props
+        const {list,idItem, info, imageUrl, requestList, placeholderImageUrl, pagePlanets, togglePagePlanet} = this.props
+       
         return (
             <div className='blockPage'>
-                <ItemList
-                    setStartId={setStartId}
-                    idItem={idItem}
-                    onItemSelected={onItemSelected}
-                    selectedId={selectedId}
-                    requestList={requestList}
-                    list={list}
-                    page={page}
-                    toggleNextPage={toggleNextPage}
-                    togglePrevPage={togglePrevPage} />
-                <PersonDetails
-                    setStartId={setStartId}
-                    idItem={idItem}
-                    selectedId={selectedId}
-                    getDetails={getDetails}
-                    getUrl={getUrl}
-                    requestPeopleInfo={requestPeopleInfo}
-                    setUrlimageProfile={setUrlimageProfile}
-                    itemInfo={itemInfo}
-                    imageUrl={imageUrl} />
-            </div>
+                <ItemListPlanets  
+                    togglePagePlanet={togglePagePlanet}
+                    page={pagePlanets} 
+                    list={list} 
+                    idItem={idItem} 
+                    requestList={requestList} 
+                    {...this.props} />
+
+                <PersonDetails 
+                    placeholderImageUrl={placeholderImageUrl} 
+                    imageUrl={imageUrl} 
+                    info={info} 
+                    {...this.props} />
+            </div> 
 
 
         )
     }
-}
+}    
 
 
-const mapStateToProps = (state) => {
-
-    return {
-        imageUrl: state.general.imageUrl,
-        list: state.general.list,
-        itemInfo: state.general.itemInfo,
-        idItem: state.general.idItem,
-        page: state.general.page
-    }
-}
-
-export default compose(
-    connect(mapStateToProps, { setUrlimageProfile, requestList, requestItemInfo, setStartId, toggleNextPage, togglePrevPage })
-)(PeoplePageContainer)
+export default PlanetsPageContainer 

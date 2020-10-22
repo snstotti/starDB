@@ -1,12 +1,12 @@
 import React,{Component, Fragment} from 'react'
 import './random-planet.css'
-import SwapiService from '../../service/SwapiService'
+
 import Spiner from '../spiner/spiner'
-import ErrorIndicator from '../errorIndicator/ErrorIndicator'
+
 
 export default class RandomPlanets extends Component{
 
-    swapiService = new SwapiService()
+    
 
     state={
         planet:{},
@@ -53,12 +53,12 @@ render(){
     const hasData = !(isLoading || error)
     const spiner = isLoading ? <Spiner /> : null
     const content = hasData ? <PlanetView planet={planet} /> : null
-    const errorMessage = error ? <ErrorIndicator /> : null
+    // const errorMessage = error ? <ErrorIndicator /> : null
 
     return (
         <div className='random-planet d-flex jumbotron mb-5 rounded'>
             {spiner}
-            {errorMessage}
+            {/* {errorMessage} */}
             {content}
         </div>
     )

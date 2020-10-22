@@ -1,0 +1,28 @@
+.blockPage {
+    display: flex;
+    margin-bottom: 3rem;
+}
+@media (max-width: 900px) {
+    .blockPage{
+        justify-content: space-between;
+    }
+}
+@media (max-width: 800px) {
+    .blockPage{
+        flex-direction: column;
+    }
+}
+
+.label{
+    margin: 10px;
+}
+
+@media (max-width: 420px){
+    .label{
+        display: none;
+    }
+    .name{
+        display: flex;
+        justify-content: center;
+    }
+}

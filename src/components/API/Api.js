@@ -11,9 +11,24 @@ const instanceImage = Axios.create({
 
 export const imageAPI = {
     
-    getImageUrl(name,imageId){
+    getUrlImagePeople(imageId){
+       
         return (
-            instanceImage.get(`${name}/${imageId}.jpg`)
+            instanceImage.get(`characters/${imageId}.jpg`)
+                .then(responce => responce.request.responseURL)
+                
+        )
+    },
+    getUrlImagePlanets(imageId){
+        return (
+            instanceImage.get(`planets/${imageId}.jpg`)
+                .then(responce => responce.request.responseURL)
+                .catch(()=>null)
+        )
+    },
+    getUrlImageStarships(imageId){
+        return (
+            instanceImage.get(`starships/${imageId}.jpg`)
                 .then(responce => responce.request.responseURL)
         )
     }
@@ -23,9 +38,15 @@ export const imageAPI = {
 
 export const itemsListAPI = {
     
-    getList(name,page) {
+    getListPeople(page) {
         return (
-            instance.get(`${name}/?page=${page}`)
+            instance.get(`people/?page=${page}`)
+                .then(responce => responce.data.results)
+        )
+    },
+    getListPlanets(page) {
+        return (
+            instance.get(`planets/?page=${page}`)
                 .then(responce => responce.data.results)
         )
     }
@@ -33,14 +54,20 @@ export const itemsListAPI = {
 // itemsListAPI.getListPeople(2)
 export const personalAPI = {
     
-    getPerson(name,id) {
+    getPerson(id) {
         return (
-            instance.get(`${name}/${id}`)
-            .then(responce => responce.data)
+            instance.get(`people/${id}`)
+            .then(responce =>responce.data)
+        )
+    },
+    getPlanetInfo(id) {
+        return (
+            instance.get(`planets/${id}`)
+            .then(responce =>responce.data)
         )
     }
 }
-
+// console.log(personalAPI.getPerson(2))
 
 export const usersAPI = {
 

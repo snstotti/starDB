@@ -1,12 +1,15 @@
 import React, { Fragment } from 'react'
-import './item-list.css'
+import '../СommonСontainer/PageContainer/PageContainer.css'
 import Spinner from '../spiner/spiner'
 
 
 const RenderItemPeopleList = ({ list, setStartId, idItem }) =>{
-
+    
     const peopleList = list.map(elem => {
-        const { name, birthYear, gender, id } = elem
+        
+        let value= Object.values(elem)
+        
+        const [ id, name, temp, temp1 ] = value
         const classActive = 'list-group-item list-group-item-action list active'
         const classDefault = 'list-group-item list-group-item-action list'
         return (
@@ -15,10 +18,10 @@ const RenderItemPeopleList = ({ list, setStartId, idItem }) =>{
                 key={id}
                 onClick={() => { setStartId(id) }}
                 className={id !== idItem ? classDefault : classActive}>
-                <span>{name}</span> <span className='label'>{birthYear}, {gender}</span>
+                <span className='name'>{name}</span> <span className='label'>{temp}, {temp1}</span>
             </li>
         )
-    })
+    }) 
 
     if (!list) {
         return <Spinner />;
