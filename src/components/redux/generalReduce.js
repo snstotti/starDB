@@ -29,22 +29,13 @@ const peoplePageReduce =(state = initialState, action)=>{
     
 }
 
-
-export const setItemId = idItem => ({type: SET_ID_ITEM, idItem}) //general option
 export const setNewPage = page => ({type: SET_NEW_PAGE, page})
+export const setItemId = idItem => ({type: SET_ID_ITEM, idItem}) //general option
+
 
 
 export const setStartId = (id) => async (dispatch) => {   
     await dispatch(setItemId(id))
-}
-
-export const toggleNextPage = (page) => async (dispatch) => {  
-    const nextPage = page + 1 
-    await dispatch(setNewPage(nextPage))
-}
-export const togglePrevPage = (page) => async (dispatch) => {   
-    const prevPage = page - 1
-    await dispatch(setNewPage(prevPage))
 }
 
 export default peoplePageReduce

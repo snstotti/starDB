@@ -2,15 +2,15 @@ import { imageAPI, itemsListAPI, personalAPI } from "../API/Api"
 import { extractId } from "../helpers/getIdFromImage"
 
 const SET_PLANET_INFO = 'SET_PLANET_INFO'
-const SET_IMAGE_URL = 'SET_IMAGE_URL'
+const SET_IMAGE_URL_PLANETS = 'SET_IMAGE_URL_PLANETS'
 const SET_LIST_PLANET = 'SET_LIST_PLANET'
-const SET_ID_ITEM = 'SET_ID_ITEM'
-const SET_NEW_PAGE = 'SET_NEW_PAGE'
+const SET_ID_ITEM_PLANETS = 'SET_ID_ITEM_PLANETS'
+const SET_NEW_PAGE_PLANETS = 'SET_NEW_PAGE_PLANETS'
 
 let initialState = {
-    imageUrlPlanet: null,
+    imageUrlPlanet: '',
     listPlanets: [],
-    idItem: null,
+    idItemPlanets: 1,
     planetInfo: [],
     pagePlanets: 1
 }
@@ -19,7 +19,7 @@ const peoplePageReduce =(state = initialState, action)=>{
 
     switch (action.type) {
 
-        case SET_IMAGE_URL :{
+        case SET_IMAGE_URL_PLANETS :{
             return { ...state, imageUrlPlanet: action.imageUrlPlanet}
         }
         case SET_LIST_PLANET :{
@@ -30,11 +30,11 @@ const peoplePageReduce =(state = initialState, action)=>{
            
             return { ...state, planetInfo: [action.planetInfo]}
         }
-        case SET_ID_ITEM :{
+        case SET_ID_ITEM_PLANETS :{
            
-            return { ...state, idItem: action.idItem}
+            return { ...state, idItemPlanets: action.idItemPlanets}
         }
-        case SET_NEW_PAGE :{
+        case SET_NEW_PAGE_PLANETS :{
            
             return { ...state, pagePlanets: action.pagePlanets}
         }
@@ -45,13 +45,15 @@ const peoplePageReduce =(state = initialState, action)=>{
     
 }
 
-export const setImageUrl = imageUrlPlanet => ({type: SET_IMAGE_URL, imageUrlPlanet}) //+
+export const setImageUrl = imageUrlPlanet => ({type: SET_IMAGE_URL_PLANETS, imageUrlPlanet}) //+
 export const setListPlanets = listPlanets => ({type: SET_LIST_PLANET, listPlanets}) //+
 export const setPlanetInfo = planetInfo => ({type: SET_PLANET_INFO, planetInfo}) 
-export const setItemId = idItem => ({type: SET_ID_ITEM, idItem})
-export const setNewPagePlanets = pagePlanets => ({type: SET_NEW_PAGE, pagePlanets})
+export const setItemId = idItemPlanets => ({type: SET_ID_ITEM_PLANETS, idItemPlanets})
+export const setNewPagePlanets = pagePlanets => ({type: SET_NEW_PAGE_PLANETS, pagePlanets})
 
-
+export const setStartIdPlanets = (id) => async (dispatch) => {   
+    await dispatch(setItemId(id))
+}
 
 export const planetInfo = (id) => async (dispatch) => {
     const planets = await personalAPI.getPlanet(id)
@@ -60,7 +62,7 @@ export const planetInfo = (id) => async (dispatch) => {
 
 export const togglePagePlanet = (toggle='p', page) => async (dispatch) => {  
     
-    const newPage = toggle == 'm' ? page - 1 : page + 1
+    const newPage = toggle === 'm' ? page - 1 : page + 1
    
    await dispatch(setNewPagePlanets(newPage))
 
@@ -94,19 +96,20 @@ export const getUrlimagePlanet = (id) => async (dispatch) => {
 } //+
 
 export const requestListPlanets = (page) => async (dispatch) => {
+    
     const planet = await itemsListAPI.getListPlanets(page)
-    const newList = planet.map(editStatePlanet)
-    dispatch(setListPlanets(newList))
-    const id = await newList[0].id
-    dispatch(setItemId(id))
    
+    const newList = !planet ? [] : planet.map(editStatePlanet)
+    dispatch(setListPlanets(newList))
+    const id = planet && await newList[0].id
+    dispatch(setItemId(id))
 } //+
 
  
 
 const editStatePlanet = (planet) => {
     return {
-        id: extractId(planet.url),
+        id: +extractId(planet.url),
         name: planet.name,
         diameter: planet.diameter,
         population: planet.population,

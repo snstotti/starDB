@@ -2,15 +2,17 @@ import { imageAPI, itemsListAPI, personalAPI } from "../API/Api"
 import { extractId } from "../helpers/getIdFromImage"
 
 const SET_PEOPLE_INFO = 'SET_PEOPLE_INFO'
-const SET_IMAGE_URL = 'SET_IMAGE_URL'
+const SET_IMAGE_URL_PEOPLE = 'SET_IMAGE_URL_PEOPLE'
 const SET_LIST_PEOPLE = 'SET_LIST_PEOPLE'
-const SET_ID_ITEM = 'SET_ID_ITEM'
-const SET_NEW_PAGE = 'SET_NEW_PAGE'
+const SET_ID_ITEM_PEOPLE = 'SET_ID_ITEM_PEOPLE'
+const SET_NEW_PAGE_PEOPLE = 'SET_NEW_PAGE_PEOPLE'
+
 
 let initialState = {
     imageUrlPeople: null,
     listPeople: [],
-    // idItem: null,
+    idItemPeople: 1,
+    
     peopleInfo: [],
     pagePeople: 1
 }
@@ -19,7 +21,7 @@ const peoplePageReduce =(state = initialState, action)=>{
 
     switch (action.type) {
 
-        case SET_IMAGE_URL :{
+        case SET_IMAGE_URL_PEOPLE :{
             return { ...state, imageUrlPeople: action.imageUrlPeople}
         }
         case SET_LIST_PEOPLE :{
@@ -30,14 +32,16 @@ const peoplePageReduce =(state = initialState, action)=>{
            
             return { ...state, peopleInfo: [action.peopleInfo]}
         }
-        case SET_ID_ITEM :{
+        case SET_ID_ITEM_PEOPLE :{
            
-            return { ...state, idItem: action.idItem}
+            return { ...state, idItemPeople: action.idItemPeople}
         }
-        case SET_NEW_PAGE :{
+        case SET_NEW_PAGE_PEOPLE :{
            
             return { ...state, pagePeople: action.pagePeople}
         }
+       
+
 
         default: return state
     }
@@ -45,20 +49,23 @@ const peoplePageReduce =(state = initialState, action)=>{
     
 }
 
-export const setImageUrl = imageUrlPeople => ({type: SET_IMAGE_URL, imageUrlPeople}) //+
-export const setListPeople = listPeople => ({type: SET_LIST_PEOPLE, listPeople}) //+
-// export const setPlanetInfo = planetInfo => ({type: SET_PLANET_INFO, planetInfo}) -----
+export const setImageUrl = imageUrlPeople => ({type: SET_IMAGE_URL_PEOPLE, imageUrlPeople}) 
+export const setListPeople = listPeople => ({type: SET_LIST_PEOPLE, listPeople}) 
 export const setPeopleInfo = peopleInfo => ({type: SET_PEOPLE_INFO, peopleInfo})
-export const setItemId = idItem => ({type: SET_ID_ITEM, idItem})
-export const setNewPage = pagePeople => ({type: SET_NEW_PAGE, pagePeople})
+export const setItemId = idItemPeople => ({type: SET_ID_ITEM_PEOPLE, idItemPeople})
+export const setNewPage = pagePeople => ({type: SET_NEW_PAGE_PEOPLE, pagePeople})
+
+
+
+
+
+export const setStartIdPeople = (id) => async (dispatch) => {   
+    await dispatch(setItemId(id))   
+}
 
 export const togglePagePeople = (toggle='p', page) => async (dispatch) => {  
-    
-    const newPage = toggle == 'm' ? page - 1 : page + 1
-   
+    const newPage = toggle === 'm' ? page - 1 : page + 1
    await dispatch(setNewPage(newPage))
-
-   
 }
 
 
@@ -68,18 +75,18 @@ export const togglePagePeople = (toggle='p', page) => async (dispatch) => {
 //     dispatch(setPlanetInfo(editStatePlanet(planets)))
 // } // -----
 
-export const toggleNextPage = (page) => async (dispatch) => {  
-    const nextPage = page + 1 
-    await dispatch(setNewPage(nextPage))
-}
-export const togglePrevPage = (page) => async (dispatch) => {   
-    const prevPage = page - 1
-    await dispatch(setNewPage(prevPage))
-}
+// export const toggleNextPage = (page) => async (dispatch) => {  
+//     const nextPage = page + 1 
+//     await dispatch(setNewPage(nextPage))
+// }
+// export const togglePrevPage = (page) => async (dispatch) => {   
+//     const prevPage = page - 1
+//     await dispatch(setNewPage(prevPage))
+// }
 
-export const setStartId = (id) => async (dispatch) => {   
-    await dispatch(setItemId(id))
-} //+
+// export const setStartId = (id) => async (dispatch) => {   
+//     await dispatch(setItemId(id))
+// } //+
 
 
 export const requestPeopleInfo = (id) => async (dispatch) => {
@@ -100,15 +107,16 @@ export const getUrlimagePeople = (id) => async (dispatch) => {
 
 export const requestListPeople = (page) => async (dispatch) => {
     const people = await itemsListAPI.getListPeople(page)
-    const newList = people.map(editStatePeople)
+    const newList = !people ? [] : people.map(editStatePeople)
     dispatch(setListPeople(newList))
-    const id = await newList[0].id
+    const id = people && await newList[0].id
     dispatch(setItemId(id))
+   
 } //+
 
 const editStatePeople = (people) => {
     return {
-        id: extractId(people.url),
+        id: +extractId(people.url),
         name: people.name,
         gender: people.gender,
         birthYear: people.birth_year,

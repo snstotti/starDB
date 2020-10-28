@@ -10,6 +10,9 @@
     width: 50%;
 
 }
+.block-image{
+    margin-right: 15px;
+}
 .description{
     text-align: left;
     padding: 0 10px;

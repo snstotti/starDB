@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { setStartId, togglePrevPage, toggleNextPage } from '../redux/generalReduce'
-import { getUrlimagePeople, requestPeopleInfo, requestListPeople,togglePagePeople } from '../redux/peoplePageReduce'
-import { getUrlimagePlanet, requestPlanetInfo, requestListPlanets,togglePagePlanet } from '../redux/planetsPageReduce'
+
+import { getUrlimagePeople, setStartIdPeople, requestPeopleInfo, requestListPeople, togglePagePeople } from '../redux/peoplePageReduce'
+import { setStartIdStarships,togglePageStarships,requestStarshipsInfo,getUrlimageStarships,requestListStarships } from '../redux/starshipsPageReduce'
 import { Route } from "react-router-dom"
-import PageContainer from './PageContainer/PageContainer'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import PeoplePageContainer from '../peoplePage/PeoplePageContainer'
+import PersonDetails from '../person-details/person-details'
+import ItemList from '../item-list/item-list'
+
+import PageContainer from '../СommonСontainer/PageContainer/PageContainer'
+import RenderItem from '../item-list/renderItem'
 import PlanetsPageContainer from '../PlanetsPage/PlanetsPageContainer'
 
 
@@ -14,46 +17,63 @@ import PlanetsPageContainer from '../PlanetsPage/PlanetsPageContainer'
 class CommonContainer extends Component {
 
     render() {
-        const {getUrlimagePeople, requestPeopleInfo,listPeople,peopleInfo,requestListPeople,imageUrlPeople,imageUrlPlanet,placeholderImageUrl,planetInfo,listPlanets,requestListPlanets,requestPlanetInfo,
-            getUrlimagePlanet,pagePlanets,pagePeople,togglePagePlanet, togglePagePeople} = this.props
-            
+        const { setStartIdPeople,  getUrlimagePeople, requestPeopleInfo, listPeople, peopleInfo, requestListPeople, imageUrlPeople,      
+              pagePeople, idItemPeople,  } = this.props
+
         return (
             <div className='container-md '>
-               
-                
-                    <Route path='/people' >
-                        <PeoplePageContainer 
-                            way={'people'}
-                            togglePagePeople={togglePagePeople}
-                            getImage={getUrlimagePeople} 
-                            requestInfo={requestPeopleInfo}
-                            requestList={requestListPeople}
-                            placeholderImageUrl={placeholderImageUrl}
+                <Route path='/people' >
+                    <PageContainer
+                        getUrlimage={getUrlimagePeople}
+                        requestInfo={requestPeopleInfo}
+                        idItem={idItemPeople}
+                        setStartId={setStartIdPeople}
+                        >
+                        <ItemList
                             list={listPeople}
-                            info={peopleInfo}
+                            page={pagePeople}
+                            togglePage={this.props.togglePagePeople}
+                            requestList={requestListPeople}>
+                                <RenderItem
+                                    list={listPeople}
+                                    setStartId={setStartIdPeople}
+                                    idItem={idItemPeople} />
+                        </ItemList>
+                        <PersonDetails
                             imageUrl={imageUrlPeople}
-                            pagePeople={pagePeople}
-                            {...this.props} 
+                            info={peopleInfo}
+                            way={'people'} />
+                    </PageContainer>
+                </Route>
 
-                            />
-                    </Route>
-                    <Route path='/planets' >
-                        <PlanetsPageContainer
-                        way={'planet'}
-                        togglePagePlanet={togglePagePlanet}
-                        getImage={getUrlimagePlanet} 
-                        requestInfo={requestPlanetInfo}
-                        requestList={requestListPlanets}
-                        placeholderImageUrl={placeholderImageUrl}
-                        list={listPlanets}
-                        info={planetInfo}
-                        imageUrl={imageUrlPlanet}
-                        pagePlanets={pagePlanets}
-                        {...this.props} 
-                        />
-                    </Route>
-                
+                <Route path='/planets' >
+                    <PlanetsPageContainer />
+                </Route>
 
+                <Route path='/starships' >
+                    <PageContainer
+                        getUrlimage={this.props.getUrlimageStarships}
+                        requestInfo={this.props.requestStarshipsInfo}
+                        idItem={this.props.idItemStarships}
+                        setStartId={this.props.setStartIdStarships} >
+                        <ItemList
+                            list={this.props.listStarships}
+                            page={this.props.pageStarships}
+                            togglePage={this.props.togglePageStarships}
+                            requestList={this.props.requestListStarships}>
+                                <RenderItem
+                                    list={this.props.listStarships}
+                                    setStartId={this.props.setStartIdStarships}
+                                    idItem={this.props.idItemStarships}
+                                    way={'starships'} />
+                        </ItemList>
+                        <PersonDetails
+                            imageUrl={this.props.imageUrlStarships}
+                            info={this.props.starshipsInfo}
+                            way={'starships'} />
+                    </PageContainer>
+
+                </Route>
             </div>
         )
     }
@@ -61,23 +81,28 @@ class CommonContainer extends Component {
 const mapStateToProps = (state) => {
 
     return {
-        idItem: state.general.idItem,
-        placeholderImageUrl: state.general.placeholderImageUrl,
-
+       
+        idItemPeople: state.peoplePage.idItemPeople,
         imageUrlPeople: state.peoplePage.imageUrlPeople,
         listPeople: state.peoplePage.listPeople,
         peopleInfo: state.peoplePage.peopleInfo,
         pagePeople: state.peoplePage.pagePeople,
 
-        imageUrlPlanet: state.planetsPage.imageUrlPlanet,
-        planetInfo: state.planetsPage.planetInfo,
-        listPlanets: state.planetsPage.listPlanets,
-        pagePlanets: state.planetsPage.pagePlanets,
+       
+
+        idItemStarships: state.starshipsPage.idItemStarships,
+        imageUrlStarships: state.starshipsPage.imageUrlStarships,
+        starshipsInfo: state.starshipsPage.starshipsInfo,
+        listStarships: state.starshipsPage.listStarships,
+        pageStarships: state.starshipsPage.pageStarships,
     }
 }
 
 export default compose(
     connect(mapStateToProps,
-         { setStartId, getUrlimagePeople, requestPeopleInfo, requestListPeople,
-            getUrlimagePlanet,requestPlanetInfo, requestListPlanets, togglePagePlanet,togglePagePeople })
+        {
+            setStartIdPeople,  getUrlimagePeople, requestPeopleInfo, requestListPeople,
+                togglePagePeople,
+            setStartIdStarships,togglePageStarships,requestStarshipsInfo,getUrlimageStarships,requestListStarships, 
+        })
 )(CommonContainer)

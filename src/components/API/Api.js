@@ -30,6 +30,7 @@ export const imageAPI = {
         return (
             instanceImage.get(`starships/${imageId}.jpg`)
                 .then(responce => responce.request.responseURL)
+                .catch(()=>null)
         )
     }
     
@@ -42,12 +43,23 @@ export const itemsListAPI = {
         return (
             instance.get(`people/?page=${page}`)
                 .then(responce => responce.data.results)
+                // .then(responce => console.log(responce))
+                .catch(()=>null)
+                
         )
     },
     getListPlanets(page) {
         return (
             instance.get(`planets/?page=${page}`)
                 .then(responce => responce.data.results)
+                .catch(()=>null)
+        )
+    },
+    getListStarships(page) {
+        return (
+            instance.get(`starships/?page=${page}`)
+                .then(responce => responce.data.results)
+                .catch(()=>null)
         )
     }
 }
@@ -63,6 +75,12 @@ export const personalAPI = {
     getPlanetInfo(id) {
         return (
             instance.get(`planets/${id}`)
+            .then(responce =>responce.data)
+        )
+    },
+    getStarshipsInfo(id) {
+        return (
+            instance.get(`starships/${id}`)
             .then(responce =>responce.data)
         )
     }

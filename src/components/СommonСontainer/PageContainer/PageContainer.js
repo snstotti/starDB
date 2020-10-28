@@ -1,46 +1,24 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import './PageContainer.css'
-import ItemList from '../../item-list/item-list'
 import Spiner from '../../spiner/spiner'
-import PersonDetails from '../../person-details/person-details'
 
-class PageContainer extends Component {
+const PageContainer =({setStartId, getUrlimage, requestInfo,idItem,children})=>{
 
-    componentDidMount() {
-        this.onUpdatePerson()
-    }
-    componentDidUpdate(prevProps) {
-       
-        if (this.props.idItem !== prevProps.idItem) {
-             this.onUpdatePerson() 
-        }
-    }
-
-    onUpdatePerson = () => {
-        const {  setStartId, getImage, requestInfo, idItem} = this.props
-        if (!idItem) {
-            return <Spiner />
-        }
-        
+    useEffect(()=>{
         setStartId(idItem)
-        getImage(idItem)
+        getUrlimage(idItem)
         requestInfo(idItem)
+        console.log('click');
+    },[idItem,setStartId,getUrlimage,requestInfo])
+    
+    if (!idItem) {
+        return <Spiner />
     }
-
-   
-    render() {
-        const {list,idItem, info, imageUrl, requestList, placeholderImageUrl, page, togglePage} = this.props
-       
         return (
             <div className='blockPage'>
-                <ItemList {...this.props} togglePage={togglePage} page={page} list={list} idItem={idItem} requestList={requestList} />
-                <PersonDetails {...this.props}  placeholderImageUrl={placeholderImageUrl} imageUrl={imageUrl} info={info} />
+              {children}
             </div>
-
-
         )
-    }
 }    
-
 
 export default PageContainer 

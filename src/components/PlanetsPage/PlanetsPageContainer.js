@@ -1,58 +1,62 @@
-import React, { Component } from 'react'
-import '../СommonСontainer/PageContainer/PageContainer.css'
-import ItemList from '../item-list/item-list'
-import Spiner from '../spiner/spiner'
+import React from 'react'
+import { getUrlimagePlanet, setStartIdPlanets, requestPlanetInfo, requestListPlanets, togglePagePlanet } from '../redux/planetsPageReduce'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import PersonDetails from '../person-details/person-details'
-import ItemListPlanets from './itemListPlanets'
+import ItemList from '../item-list/item-list'
+import PageContainer from '../СommonСontainer/PageContainer/PageContainer'
+import RenderItem from '../item-list/renderItem'
 
-class PlanetsPageContainer extends Component {
 
-    componentDidMount() {
-        this.onUpdatePerson()
+
+const PlanetsPageContainer = (props) => {
+
+    const { setStartIdPlanets, imageUrlPlanet, planetInfo, listPlanets, requestListPlanets, requestPlanetInfo,
+        getUrlimagePlanet, pagePlanets, idItemPlanets } = props
+
+    return (
+        <PageContainer
+            getUrlimage={getUrlimagePlanet}
+            requestInfo={requestPlanetInfo}
+            idItem={idItemPlanets}
+            setStartId={setStartIdPlanets} >
+
+            <ItemList
+                list={listPlanets}
+                page={pagePlanets}
+                togglePage={props.togglePagePlanet}
+                requestList={requestListPlanets}>
+                <RenderItem
+                    list={listPlanets}
+                    setStartId={setStartIdPlanets}
+                    idItem={idItemPlanets} />
+            </ItemList>
+
+            <PersonDetails
+                imageUrl={imageUrlPlanet}
+                info={planetInfo}
+                way={'planet'} />
+
+        </PageContainer>
+
+
+
+    )
+}
+const mapStateToProps = (state) => {
+
+    return {
+        idItemPlanets: state.planetsPage.idItemPlanets,
+        imageUrlPlanet: state.planetsPage.imageUrlPlanet,
+        planetInfo: state.planetsPage.planetInfo,
+        listPlanets: state.planetsPage.listPlanets,
+        pagePlanets: state.planetsPage.pagePlanets,
     }
-    componentDidUpdate(prevProps) {
-       
-        if (this.props.idItem !== prevProps.idItem) {
-             this.onUpdatePerson() 
-        }
-    }
+}
 
-    onUpdatePerson = () => {
-        const {  setStartId, getImage, requestInfo, idItem} = this.props
-        if (!idItem) {
-            return <Spiner />
-        }
-        
-        setStartId(idItem)
-        getImage(idItem)
-        requestInfo(idItem)
-    }
-
-   
-    render() {
-        const {list,idItem, info, imageUrl, requestList, placeholderImageUrl, pagePlanets, togglePagePlanet} = this.props
-       
-        return (
-            <div className='blockPage'>
-                <ItemListPlanets  
-                    togglePagePlanet={togglePagePlanet}
-                    page={pagePlanets} 
-                    list={list} 
-                    idItem={idItem} 
-                    requestList={requestList} 
-                    {...this.props} />
-
-                <PersonDetails 
-                    placeholderImageUrl={placeholderImageUrl} 
-                    imageUrl={imageUrl} 
-                    info={info} 
-                    {...this.props} />
-            </div> 
-
-
-        )
-    }
-}    
-
-
-export default PlanetsPageContainer 
+export default compose(
+    connect(mapStateToProps,
+        {
+            setStartIdPlanets, getUrlimagePlanet, requestPlanetInfo, requestListPlanets, togglePagePlanet
+        })
+)(PlanetsPageContainer)

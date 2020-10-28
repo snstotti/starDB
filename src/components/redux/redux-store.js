@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk'
 import peoplePageReduce from './peoplePageReduce';
 import generalReduce from './generalReduce';
 import planetsPageReduce from './planetsPageReduce';
+import starshipsPageReduce from './starshipsPageReduce';
 
 
 
@@ -10,6 +11,7 @@ import planetsPageReduce from './planetsPageReduce';
 const reducer = combineReducers({
     planetsPage: planetsPageReduce,
     peoplePage: peoplePageReduce,
+    starshipsPage: starshipsPageReduce,
     general: generalReduce
 })
 
