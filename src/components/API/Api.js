@@ -1,10 +1,12 @@
 import Axios from "axios"
 
 const instance = Axios.create({
-    baseURL: '//swapi.dev/api/',
+    baseURL: 'https://swapi.dev/api/',
+    responseType: "json"
 })
 const instanceImage = Axios.create({
-    baseURL: '//starwars-visualguide.com/assets/img/',
+    baseURL: 'https://starwars-visualguide.com/assets/img/',
+    responseType: "json"
 })
 
 
@@ -13,21 +15,23 @@ export const imageAPI = {
     getUrlImagePeople(imageId){
        
         return (
-            instanceImage.get(`characters/${imageId}.jpg`)
+            instanceImage(`characters/${imageId}.jpg`)
                 .then(responce => responce.request.responseURL)
+                
+              
                 
         )
     },
     getUrlImagePlanets(imageId){
         return (
-            instanceImage.get(`planets/${imageId}.jpg`)
+            instanceImage(`planets/${imageId}.jpg`)
                 .then(responce => responce.request.responseURL)
                 .catch(()=>null)
         )
     },
     getUrlImageStarships(imageId){
         return (
-            instanceImage.get(`starships/${imageId}.jpg`)
+            instanceImage(`starships/${imageId}.jpg`)
                 .then(responce => responce.request.responseURL)
                 .catch(()=>null)
         )
@@ -40,7 +44,7 @@ export const itemsListAPI = {
     
     getListPeople(page) {
         return (
-            instance.get(`people/?page=${page}`)
+            instance(`people/?page=${page}`)
                 .then(responce => responce.data.results)
                 .catch(()=>null)
                 
@@ -48,14 +52,14 @@ export const itemsListAPI = {
     },
     getListPlanets(page) {
         return (
-            instance.get(`planets/?page=${page}`)
+            instance(`planets/?page=${page}`)
                 .then(responce => responce.data.results)
                 .catch(()=>null)
         )
     },
     getListStarships(page) {
         return (
-            instance.get(`starships/?page=${page}`)
+            instance(`starships/?page=${page}`)
                 .then(responce => responce.data.results)
                 .catch(()=>null)
         )
@@ -64,19 +68,19 @@ export const itemsListAPI = {
 export const personalAPI = {
     getPerson(id) {
         return (
-            instance.get(`people/${id}`)
+            instance(`people/${id}/`)
             .then(responce =>responce.data)
         )
     },
     getPlanetInfo(id) {
         return (
-            instance.get(`planets/${id}`)
+            instance(`planets/${id}/`)
             .then(responce =>responce.data)
         )
     },
     getStarshipsInfo(id) {
         return (
-            instance.get(`starships/${id}`)
+            instance(`starships/${id}/`)
             .then(responce =>responce.data)
         )
     }

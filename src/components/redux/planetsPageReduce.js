@@ -80,8 +80,6 @@ export const togglePagePlanet = (toggle='p', page) => async (dispatch) => {
     const newPage = toggle === 'm' ? page - 1 : page + 1
    
    await dispatch(setNewPagePlanets(newPage))
-
-   
 }
 
 export const setStartId = (id) => async (dispatch) => {   
@@ -133,18 +131,5 @@ const editStatePlanet = (planet) => {
     }
 } // -----
 
-// const editStateStarships = (starships) => {
-//     return {
-//         id: extractId(starships.url),
-//         name: starship.name,
-//         model: starship.model,
-//         manufacturer: starship.manufacturer,
-//         costInCredits: starship.costInCredits,
-//         length: starship.length,
-//         crew: starship.crew,
-//         passengers: starship.passengers,
-//         cargoCapacity: starship.cargoCapacity
-//     }
-// } //-----
 
 export default peoplePageReduce
