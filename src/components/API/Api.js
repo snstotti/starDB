@@ -1,12 +1,11 @@
 import Axios from "axios"
 
 const instance = Axios.create({
-    baseURL: 'https://swapi.dev/api/'
+    baseURL: '//swapi.dev/api/',
 })
 const instanceImage = Axios.create({
-    baseURL: 'https://starwars-visualguide.com/assets/img/'
+    baseURL: '//starwars-visualguide.com/assets/img/',
 })
-
 
 
 export const imageAPI = {
@@ -43,7 +42,6 @@ export const itemsListAPI = {
         return (
             instance.get(`people/?page=${page}`)
                 .then(responce => responce.data.results)
-                // .then(responce => console.log(responce))
                 .catch(()=>null)
                 
         )
@@ -63,9 +61,7 @@ export const itemsListAPI = {
         )
     }
 }
-// itemsListAPI.getListPeople(2)
 export const personalAPI = {
-    
     getPerson(id) {
         return (
             instance.get(`people/${id}`)
@@ -85,17 +81,3 @@ export const personalAPI = {
         )
     }
 }
-// console.log(personalAPI.getPerson(2))
-
-export const usersAPI = {
-
-    getUsers() {
-        
-        return (
-            instance.get(`people/`)
-                // .then(responce => console.log(responce))
-        )
-    }
-}
-
-// console.log(itemsListAPI.getListPeople(1))
