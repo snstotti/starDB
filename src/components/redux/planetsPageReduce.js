@@ -6,13 +6,17 @@ const SET_IMAGE_URL_PLANETS = 'SET_IMAGE_URL_PLANETS'
 const SET_LIST_PLANET = 'SET_LIST_PLANET'
 const SET_ID_ITEM_PLANETS = 'SET_ID_ITEM_PLANETS'
 const SET_NEW_PAGE_PLANETS = 'SET_NEW_PAGE_PLANETS'
+const SET_RANDOM_PLANETS = 'SET_RANDOM_PLANETS'
+const SET_RANDOM_URL_IMAGE = 'SET_RANDOM_URL_IMAGE'
 
 let initialState = {
     imageUrlPlanet: '',
     listPlanets: [],
     idItemPlanets: 1,
     planetInfo: [],
-    pagePlanets: 1
+    pagePlanets: 1,
+    randomPlanets: [],
+    randomUrlImage: null
 }
 
 const peoplePageReduce =(state = initialState, action)=>{
@@ -38,6 +42,14 @@ const peoplePageReduce =(state = initialState, action)=>{
            
             return { ...state, pagePlanets: action.pagePlanets}
         }
+        case SET_RANDOM_PLANETS :{
+           
+            return { ...state, randomPlanets: action.randomPlanets}
+        }
+        case SET_RANDOM_URL_IMAGE :{
+           
+            return { ...state, randomUrlImage: action.randomUrlImage}
+        }
 
         default: return state
     }
@@ -50,6 +62,9 @@ export const setListPlanets = listPlanets => ({type: SET_LIST_PLANET, listPlanet
 export const setPlanetInfo = planetInfo => ({type: SET_PLANET_INFO, planetInfo}) 
 export const setItemId = idItemPlanets => ({type: SET_ID_ITEM_PLANETS, idItemPlanets})
 export const setNewPagePlanets = pagePlanets => ({type: SET_NEW_PAGE_PLANETS, pagePlanets})
+export const setRandomPlanets = randomPlanets => ({type: SET_RANDOM_PLANETS, randomPlanets})
+export const setRandomImage = randomUrlImage => ({type: SET_RANDOM_URL_IMAGE, randomUrlImage})
+
 
 export const setStartIdPlanets = (id) => async (dispatch) => {   
     await dispatch(setItemId(id))
@@ -68,31 +83,32 @@ export const togglePagePlanet = (toggle='p', page) => async (dispatch) => {
 
    
 }
-// export const togglePrevPagePlanet = (page) => async (dispatch) => {   
-//     const prevPage = page - 1
-//     await dispatch(setNewPage(prevPage))
-// }
-
 
 export const setStartId = (id) => async (dispatch) => {   
     await dispatch(setItemId(id))
-} //+
+} 
 
 
 export const requestPlanetInfo = (id) => async (dispatch) => {
-    
     const planet = await personalAPI.getPlanetInfo(id)
     dispatch(setPlanetInfo(editStatePlanet(planet)))
-    
-}  //+
+} 
+
+
+export const requestRandomPlanet = (id) => async (dispatch) => {
+    const planet = await personalAPI.getPlanetInfo(id)
+    dispatch(setRandomPlanets(editStatePlanet(planet)))
+    const defaultImage = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
+    const url = await imageAPI.getUrlImagePlanets(id)
+    !url ? dispatch(setRandomImage(defaultImage)) : dispatch(setRandomImage(url))
+} 
+
 
 
 export const getUrlimagePlanet = (id) => async (dispatch) => {
     const defaultImage = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
     const url = await imageAPI.getUrlImagePlanets(id)
     !url ? dispatch(setImageUrl(defaultImage)) : dispatch(setImageUrl(url))
-    
-    
 } //+
 
 export const requestListPlanets = (page) => async (dispatch) => {

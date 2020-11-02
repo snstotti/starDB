@@ -2,10 +2,10 @@ import React from 'react'
 import { getUrlimagePlanet, setStartIdPlanets, requestPlanetInfo, requestListPlanets, togglePagePlanet } from '../redux/planetsPageReduce'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import PersonDetails from '../person-details/person-details'
-import ItemList from '../item-list/item-list'
+import PersonDetails from '../СommonСontainer/PageContainer/PersonDetails/person-details'
+import ItemList from '../СommonСontainer/PageContainer/ItemList/item-list'
 import PageContainer from '../СommonСontainer/PageContainer/PageContainer'
-import RenderItem from '../item-list/renderItem'
+import RenderItem from '../СommonСontainer/PageContainer/ItemList/RenderItem/renderItem'
 
 
 

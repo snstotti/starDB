@@ -1,26 +1,24 @@
 .blockPage {
     display: flex;
     margin-bottom: 3rem;
+    justify-content: space-between;
 }
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     .blockPage{
-        justify-content: space-between;
+        
     }
 }
-@media (max-width: 800px) {
+@media (max-width: 768px) {
     .blockPage{
         flex-direction: column;
     }
+    
 }
 
-.label{
-    margin: 10px;
-}
+
 
 @media (max-width: 420px){
-    .label{
-        display: none;
-    }
+   
     .name{
         display: flex;
         justify-content: center;

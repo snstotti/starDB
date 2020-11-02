@@ -2,29 +2,35 @@
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
 }
-
-.nav-bar {
+.header__title{
+    margin-right: 10px;
+}
+.header__list {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
-.nav-bar li a{
+.header-item__link{
     padding: .5rem 1rem;
     color:#1E705F;
     font-weight: bold;
 }
 
-.nav-bar li a:hover{
+.header-item__link:hover{
     background-color: #444;
     border-radius: 5px;
     color:#39ccaf;
     cursor: pointer;
     text-decoration: none;
 }
-@media(max-width:580px){
+
+@media(max-width:768px){
     .header {
         flex-direction: column;
+        justify-content: center;
     }
-    .nav-bar{
+    .header__list{
         display: flex;
     }
 }

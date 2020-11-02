@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Spiner from '../../../spiner/spiner'
 import './item-list.css'
 
 const ItemList =({ list, page, togglePage,requestList,children})=>{
@@ -6,7 +7,10 @@ const ItemList =({ list, page, togglePage,requestList,children})=>{
     useEffect(()=>{
         requestList(page)
     },[page,requestList])
-    
+ 
+        if( !page ){
+            return <Spiner />
+        }
         return (
             <div className='item-list mr-5'>
                 <div>

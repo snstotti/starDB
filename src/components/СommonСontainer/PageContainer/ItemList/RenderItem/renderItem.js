@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
-import '../СommonСontainer/PageContainer/PageContainer.css'
-import Spinner from '../spiner/spiner'
+import '../../../PageContainer/PageContainer.css'
+import Spinner from '../../../../spiner/spiner'
 
 
 const RenderItem = ({ list, setStartId, idItem, way}) =>{

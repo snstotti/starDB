@@ -5,9 +5,9 @@ const ShortDescriptionPlanet = ({details}) =>{
     const { diameter, population, rotationPeriod } = details
     return(
     <>   
-    <li className="list-description list-group-item ">Diametr: {diameter}</li> 
-    <li className="list-description list-group-item ">Population: {population}</li> 
-    <li className="list-description list-group-item ">Rotation Period: {rotationPeriod}</li> 
+    <li className="personDetails-list__item list-group-item ">Diametr: {diameter}</li> 
+    <li className="personDetails-list__item list-group-item ">Population: {population}</li> 
+    <li className="personDetails-list__item list-group-item ">Rotation Period: {rotationPeriod}</li> 
    </>
     )
 }
