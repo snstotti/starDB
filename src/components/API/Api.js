@@ -26,7 +26,7 @@ export const imageAPI = {
         return (
             instanceImage(`planets/${imageId}.jpg`)
                 .then(responce => responce.request.responseURL)
-                .catch(()=>null)
+                .catch((error)=>console.log(error))
         )
     },
     getUrlImageStarships(imageId){
@@ -47,7 +47,6 @@ export const itemsListAPI = {
             instance(`people/?page=${page}`)
                 .then(responce => responce.data.results)
                 .catch(()=>null)
-                
         )
     },
     getListPlanets(page) {

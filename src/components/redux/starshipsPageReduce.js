@@ -82,46 +82,36 @@ export const requestStarshipsInfo = (id) => async (dispatch) => {
 
 
 export const getUrlimageStarships = (id) => async (dispatch) => {
-    const defaultImage = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
+    try{
+        const defaultImage = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
     const url = await imageAPI.getUrlImageStarships(id)
     !url ? dispatch(setImageUrl(defaultImage)) : dispatch(setImageUrl(url))
+    } catch(e){
+        console.log(e)
+    }
+    
     
     
 } //+
 
 export const requestListStarships = (page) => async (dispatch) => {
-    const starships = await itemsListAPI.getListStarships(page)
+    try{
+        const starships = await itemsListAPI.getListStarships(page)
     const newList = !starships ? [] : starships.map(editStateStarships)
     dispatch(setListStarships(newList))
     const id = starships && await newList[0].id
     dispatch(setItemId(id))
+    } catch(e){
+        console.log(e);
+    }
+    
    
 } //+
 
-// const editStateStarships = (Starships) => {
-//     return {
-//         id: +extractId(Starships.url),
-//         name: Starships.name,
-//         gender: Starships.gender,
-//         birthYear: Starships.birth_year,
-//         eyeColor: Starships.eye_color,
-//         hairColor: Starships.hair_color
-//     }
-// } 
-
-// const editStatePlanet = (planets) => {
-//     return {
-//         id: extractId(planets.url),
-//         name: planets.name,
-//         diameter: planets.diameter,
-//         population: planets.population,
-//         rotationPeriod: planets.rotation_period
-//     }
-// } // -----
 
 const editStateStarships = (starships) => {
     return { 
-        id: +extractId(starships.url),
+        id: +extractId(starships.url) ,
         name: starships.name,
         model: starships.model,
         manufacturer: starships.manufacturer,

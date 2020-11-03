@@ -10,9 +10,11 @@ import { requestRandomPlanet,getUrlimagePlanet} from '../redux/planetsPageReduce
 const RandomPlanetsContainer =({randomPlanets,requestRandomPlanet,randomUrlImage})=> {
 
     const [random,setRandom]=useState(2)
+    
+    let idR = Math.round(Math.random() * 16 + 3)
+    let timerId = setInterval(()=>setRandom(idR),3000)
 
-    let idR = Math.round(Math.random() * 16 + 2)
-    let timerId = setTimeout(()=>setRandom(idR),5000)
+    
     
         useEffect(()=>{
             requestRandomPlanet(random)
@@ -20,11 +22,10 @@ const RandomPlanetsContainer =({randomPlanets,requestRandomPlanet,randomUrlImage
 
         useEffect(()=>{
            return()=>{
-            clearTimeout(timerId)
+            clearInterval(timerId)
            }
         },[timerId])
-                
-       
+
         return (
             <div>
                 <RandomPlanets 

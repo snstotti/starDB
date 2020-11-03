@@ -19,7 +19,7 @@
 
 @media (max-width: 420px){
    
-    .name{
+    .renderItem__title{
         display: flex;
         justify-content: center;
     }

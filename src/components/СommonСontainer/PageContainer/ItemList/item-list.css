@@ -1,5 +1,5 @@
  
-.label {
+.renderItem__label {
     background-color: rgb(211, 228, 228);
     color:black;
     border-radius: 4px;
@@ -12,13 +12,13 @@
         width: 100%;
         margin-bottom: 3rem;
     }
-    .label {
+    .renderItem__label {
         display: inline;
         margin-left: 20px;
     }
 }
 @media (max-width: 420px){
-    .label {
+    .renderItem__label {
         display: none;
     }
    

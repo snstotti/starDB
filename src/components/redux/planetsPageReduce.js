@@ -16,7 +16,8 @@ let initialState = {
     planetInfo: [],
     pagePlanets: 1,
     randomPlanets: [],
-    randomUrlImage: null
+    randomUrlImage: null,
+    isLoading: false
 }
 
 const peoplePageReduce =(state = initialState, action)=>{
@@ -94,29 +95,42 @@ export const requestPlanetInfo = (id) => async (dispatch) => {
 
 
 export const requestRandomPlanet = (id) => async (dispatch) => {
-    const planet = await personalAPI.getPlanetInfo(id)
+    try{
+        const planet = await personalAPI.getPlanetInfo(id)
     dispatch(setRandomPlanets(editStatePlanet(planet)))
     const defaultImage = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
     const url = await imageAPI.getUrlImagePlanets(id)
     !url ? dispatch(setRandomImage(defaultImage)) : dispatch(setRandomImage(url))
+    } catch(e){
+        console.log(e);
+    }
+    
 } 
 
 
 
 export const getUrlimagePlanet = (id) => async (dispatch) => {
-    const defaultImage = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
+    try{
+        const defaultImage = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
     const url = await imageAPI.getUrlImagePlanets(id)
     !url ? dispatch(setImageUrl(defaultImage)) : dispatch(setImageUrl(url))
+    } catch(err){
+        console.log(err);
+    }
+    
 } //+
 
-export const requestListPlanets = (page) => async (dispatch) => {
-    
-    const planet = await itemsListAPI.getListPlanets(page)
-   
+export const requestListPlanets = (page) =>  async (dispatch) => {
+    try{
+        const planet = await itemsListAPI.getListPlanets(page)
     const newList = !planet ? [] : planet.map(editStatePlanet)
     dispatch(setListPlanets(newList))
     const id = planet && await newList[0].id
     dispatch(setItemId(id))
+    }
+    catch(err){
+        console.log(err);
+    }
 } //+
 
  

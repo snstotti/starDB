@@ -19,7 +19,7 @@ const RenderItem = ({ list, setStartId, idItem, way}) =>{
                 key={id}
                 onClick={() => { setStartId(id) }}
                 className={id !== idItem ? classDefault : classActive}>
-                <span className='name'>{name}</span> {way!=='starships'?<span className='label'>{temp}, {temp1}</span>:null}
+                <span className='renderItem__title'>{name}</span> {way!=='starships'?<span className='renderItem__label'>{temp}, {temp1}</span>:null}
             </li>
         )
     }) 
