@@ -1,4 +1,4 @@
-## [Weather App](https://snstotti.github.io/starDB/) ## <= Click
+## [Weather App](https://snstotti.github.io/starDB/) ##
 
 ### The weather API 
 https://openweathermap.org/
