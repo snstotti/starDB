@@ -1,9 +1,9 @@
 ## [app-StarDB](https://snstotti.github.io/starDB/) ##
 
-### The Star Wars API 
-https://swapi.dev/
+### The weather API 
+https://openweathermap.org/
 
-### `React JS` `SASS` `React Hooks` `BrowserRouter` `Redux` `react-modal` `react-redux` `redux-thunk` `Axios` `BEM` ###
+### `React JS` `SASS` `React Hooks`  `Redux`  `react-redux` `redux-thunk` `Axios` `BEM` `Ant-design' ###
 
 Contacts:
 #### <snstotti@gmail.com> ####
